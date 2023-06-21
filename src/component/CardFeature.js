@@ -16,6 +16,8 @@ const CardFeature = ({
   id,
   location,
   description,
+  rooms,
+  baths
 }) => {
   const dispatch = useDispatch();
 
@@ -57,7 +59,7 @@ const CardFeature = ({
                 </p>
               </div>
               <div className="flex items-center justify-between w-[40%] text-blue-500">
-                1 <FaBed size="20px" /> | 2 <FaBath size="20px" />
+                {rooms} <FaBed size="20px" /> | {baths} <FaBath size="20px" />
                 <BsGridFill size="20px" />
               </div>
               <p className=" text-slate-900 font-bold">
@@ -66,7 +68,7 @@ const CardFeature = ({
               </p>
 
               <p className=" text-slate-900 font-bold">
-                <span className="text-slate-500">{description}</span>
+                <span className="text-slate-500">{description?.substring(0,50)}...</span>
               </p>
             </div>
           </Link>

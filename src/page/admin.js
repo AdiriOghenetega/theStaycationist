@@ -18,6 +18,8 @@ const Admin = () => {
     price: "",
     description: "",
     location :"",
+    rooms:"",
+    baths:"",
   });
 
 
@@ -111,7 +113,6 @@ const Admin = () => {
     console.log("upload called")
     const data = await ImagetoBase64(e.target.files[0]);
 
-    console.log(data)
 
     setData((prev) => {
       return {
@@ -155,6 +156,8 @@ const Admin = () => {
             price: "",
             description: "",
             location:"",
+            rooms:"",
+            baths:""
           };
         });
       }catch(error){
@@ -401,9 +404,9 @@ console.log(error)
           value={data.category}
         >
           <option>Select Category</option>
-          <option value={"single bed"}>single bed</option>
-          <option value={"double bed"}>double bed</option>
-          <option value={"condo"}>condo</option>
+          <option value={"onebed"}>One Bedroom Apartment</option>
+          <option value={"twobed"}>Two Bedroom Apartment</option>
+          <option value={"deluxeapartment"}>Deluxe Apartment</option>
         </select>
 
         <label htmlFor="image">
@@ -436,6 +439,26 @@ console.log(error)
           name="price"
           onChange={handleOnChange}
           value={data.price}
+        />
+        <label htmlFor="rooms" className="my-1">
+          Rooms
+        </label>
+        <input
+          type={"text"}
+          className="bg-slate-200 p-1 my-1"
+          name="rooms"
+          onChange={handleOnChange}
+          value={data.rooms}
+        />
+        <label htmlFor="baths" className="my-1">
+          Baths
+        </label>
+        <input
+          type={"text"}
+          className="bg-slate-200 p-1 my-1"
+          name="baths"
+          onChange={handleOnChange}
+          value={data.baths}
         />
 
         <label htmlFor="location">Location</label>

@@ -6,9 +6,7 @@ import AllProduct from "../component/AllProduct";
 import accomodations from "../assets/accomodations.png"
 
 const Menu = () => {
-  const [count,setCount] = useState(0)
   const productData = useSelector((state) => state.product.productList);
-  const banner = useSelector((state) => state.banner.image);
 
   
   const topPicks = productData.filter(
@@ -48,7 +46,7 @@ const Menu = () => {
         <div className="max-h-fit">
         <div className="flex w-full items-center">
           <h2 className="font-bold text-2xl text-red-900 mb-4 bg-[rgb(255,255,255,.8)] p-2 rounded">
-            Top Sellers
+            Top Listers
           </h2>
           <div className="ml-auto flex">
             <button
@@ -80,6 +78,8 @@ const Menu = () => {
                     price={el.price}
                     image={el.image}
                     location={el.location}
+                    rooms={el.rooms}
+                    baths={el.baths}
                   />
                 );
               })
@@ -90,7 +90,7 @@ const Menu = () => {
       </div>
         </div>
         <div className="w-full md:w-[40%] my-4 md:my-0 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg md:ml-4">
-        <div className="h-[400px] overflow-hidden w-full">
+        <div className="h-[530px] overflow-hidden w-full">
               <img src={"https://images.unsplash.com/photo-1586105251261-72a756497a11?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGFwYXJ0bWVudHMlMjBiZWRyb29tJTIwZ3JheXxlbnwwfDB8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"} className="h-full w-full" />
             </div>
         </div>

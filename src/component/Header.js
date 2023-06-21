@@ -16,8 +16,6 @@ const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const location = localStorage.getItem("location");
-  const currentRoute = useLocation();
 
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
 
@@ -50,7 +48,7 @@ const Header = () => {
             <Link to={""}>
               <IoHome
                 size="25px"
-                className="text-red-900"
+                className="text-slate-900"
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content="Home"
                 data-tooltip-hidden={isMobile && true}
@@ -71,16 +69,17 @@ const Header = () => {
             <Link to={"cart"}>
               <BsCartFill
                 data-tooltip-id="my-tooltip"
+                className="text-red-900"
                 data-tooltip-content="Cart"
                 data-tooltip-hidden={isMobile && true}
               />
-              <div className="absolute -top-1 -right-1 text-white bg-red-900 h-4 w-4 rounded-full m-0 p-0 text-sm flex flex-col justify-center items-center ">
+              <div className="absolute -top-1 -right-1 text-white bg-slate-900 h-4 w-4 rounded-full m-0 p-0 text-sm flex flex-col justify-center items-center ">
                 {cartItemNumber.length}
               </div>
             </Link>
           </div>
           <div className="ml-2 text-slate-600" onClick={handleShowMenu}>
-            <div className="text-3xl cursor-pointer w-8 h-8 rounded-full overflow-hidden drop-shadow-md text-red-900">
+            <div className="text-3xl cursor-pointer w-8 h-8 rounded-full overflow-hidden drop-shadow-md text-slate-900">
               {userData.image ? (
                 <img
                   src={userData.image}
@@ -100,7 +99,7 @@ const Header = () => {
               )}
             </div>
             {showMenu && (
-              <div className="absolute right-2 bg-white py-2  shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
+              <div className="absolute right-2 bg-white py-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
                 <Link
                   to={"admin"}
                   className="whitespace-nowrap cursor-pointer px-2"

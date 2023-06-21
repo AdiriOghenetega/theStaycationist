@@ -5,7 +5,7 @@ import emptyCartImage from "../assets/empty-cart.gif";
 import { toast } from "react-hot-toast";
 import { setCartData } from "../redux/productSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { GiHamburger } from "react-icons/gi";
+import {HiHomeModern} from "react-icons/hi2"
 
 const Cart = () => {
   const [paymentLoading, setPaymentLoading] = useState(false);
@@ -17,9 +17,11 @@ const Cart = () => {
     address: "",
   });
   const productCartItem = useSelector((state) => state.product.cartItem);
-  
+
+  console.log(productCartItem)
+
   const user = useSelector((state) => state.user);
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = localStorage.getItem("location");
@@ -47,7 +49,9 @@ const Cart = () => {
     if (user.mobile || guestData.mobile) {
       setPaymentLoading(true);
       const res = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/payment?amount=${totalPrice}&email=${user._id ? user.email : guestData.email}`
+        `${process.env.REACT_APP_BASE_URL}/payment?amount=${totalPrice}&email=${
+          user._id ? user.email : guestData.email
+        }`
       );
 
       const data = await res.json();
@@ -81,13 +85,17 @@ const Cart = () => {
       dispatch(setCartData([]));
       window.location.href = data.data.authorization_url;
     } else {
-      toast("Kindly login or provide the required details to continue purchase")
+      toast(
+        "Kindly login or provide the required details to continue purchase"
+      );
     }
   };
+
+
   return (
     <div className="bg-white h-[calc(100vh-4rem)] ">
       <div className="p-2 md:p-4">
-        <h2 className="text-lg md:text-2xl font-bold text-[rgb(248,173,0)] bg-[rgb(255,255,255,.8)] p-2 rounded max-w-fit">
+        <h2 className="text-lg md:text-2xl font-bold text-red-900 bg-[rgb(255,255,255,.8)] p-2 rounded max-w-fit">
           Your Cart Items
         </h2>
 
@@ -124,77 +132,76 @@ const Cart = () => {
                   <span className="text-green-500">₦</span> {totalPrice}
                 </p>
               </div>
-              {!user?.firstName && <div className="p-6 mb-6">
-                <div className="my-6">
-                  <h3>You're not logged in</h3>
-                  <Link
-                    to={"/login"}
-                    className="text-[rgb(233,142,30)] underline"
-                  >
-                    Log in
-                  </Link>
-                  <h3>Or kindly provide the details below</h3>
+              {!user?.firstName && (
+                <div className="p-6 mb-6">
+                  <div className="my-6">
+                    <h3>You're not logged in</h3>
+                    <Link to={"/login"} className="text-red-900 underline">
+                      Log in
+                    </Link>
+                    <h3>Or kindly provide the details below</h3>
+                  </div>
+                  <label htmlFor="firstName">First Name</label>
+                  <input
+                    type={"text"}
+                    id="firstName"
+                    name="firstName"
+                    className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
+                    value={guestData.firstName}
+                    onChange={handleOnChange}
+                  />
+
+                  <label htmlFor="lastName">Last Name</label>
+                  <input
+                    type={"text"}
+                    id="lastName"
+                    name="lastName"
+                    className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
+                    value={guestData.lastName}
+                    onChange={handleOnChange}
+                  />
+
+                  <label htmlFor="email">Email</label>
+                  <input
+                    type={"email"}
+                    id="email"
+                    name="email"
+                    className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
+                    value={guestData.email}
+                    onChange={handleOnChange}
+                  />
+
+                  <label htmlFor="mobile">Mobile</label>
+                  <input
+                    type={"mobile"}
+                    id="mobile"
+                    name="mobile"
+                    className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
+                    value={guestData.mobile}
+                    onChange={handleOnChange}
+                  />
+
+                  <label htmlFor="email">Address</label>
+                  <input
+                    type={"text"}
+                    id="address"
+                    name="address"
+                    className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
+                    value={guestData.address}
+                    onChange={handleOnChange}
+                  />
                 </div>
-                <label htmlFor="firstName">First Name</label>
-                <input
-                  type={"text"}
-                  id="firstName"
-                  name="firstName"
-                  className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
-                  value={guestData.firstName}
-                  onChange={handleOnChange}
-                />
-
-                <label htmlFor="lastName">Last Name</label>
-                <input
-                  type={"text"}
-                  id="lastName"
-                  name="lastName"
-                  className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
-                  value={guestData.lastName}
-                  onChange={handleOnChange}
-                />
-
-                <label htmlFor="email">Email</label>
-                <input
-                  type={"email"}
-                  id="email"
-                  name="email"
-                  className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
-                  value={guestData.email}
-                  onChange={handleOnChange}
-                />
-
-                <label htmlFor="mobile">Mobile</label>
-                <input
-                  type={"mobile"}
-                  id="mobile"
-                  name="mobile"
-                  className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
-                  value={guestData.mobile}
-                  onChange={handleOnChange}
-                />
-
-                <label htmlFor="email">Address</label>
-                <input
-                  type={"text"}
-                  id="address"
-                  name="address"
-                  className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
-                  value={guestData.address}
-                  onChange={handleOnChange}
-                />
-              </div>}
+              )}
               {paymentLoading ? (
                 <div className="flex flex-col justify-center items-center mt-2">
-                  <GiHamburger
+                  <HiHomeModern
                     size="25"
-                    className="animate-spin text-[rgb(233,142,30)]"
+                    className="animate-spin text-red-900"
                   />
                 </div>
               ) : (
                 <button
-                  className="bg-[rgb(233,142,30)] hover:bg-orange-600 w-full text-lg font-bold py-2 text-white"
+                  className="bg-red-900 hover:bg-orange-600 w-full text-lg font-bold py-2 text-white"
                   onClick={handlePayment}
                 >
                   Proceed To Payment
@@ -209,11 +216,9 @@ const Cart = () => {
                 src={emptyCartImage}
                 className="w-full max-w-sm rounded-lg drop-shadow-2xl"
               />
-              <p className="text-[rgb(248,173,0)] text-3xl font-bold mt-4">
-                Empty Cart
-              </p>
-              <Link to={`/menu/${location}`}>
-                <button className="w-full max-w-[150px] m-auto  bg-[rgb(233,142,30)] hover:bg-orange-600 cursor-pointer text-white text-center p-2 rounded mt-4">
+              <p className="text-red-900 text-3xl font-bold mt-4">Empty Cart</p>
+              <Link to={`/`}>
+                <button className="w-full max-w-[150px] m-auto  bg-red-900 hover:bg-orange-600 cursor-pointer text-white text-center p-2 rounded mt-4">
                   Start Shopping
                 </button>
               </Link>

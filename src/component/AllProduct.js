@@ -76,6 +76,8 @@ const AllProduct = ({ heading,selectedCategory }) => {
                   price={el.price}
                   location={el.location}
                   description={el.description}
+                  baths={el.baths}
+                  rooms={el.rooms}
                 />
               );
             })

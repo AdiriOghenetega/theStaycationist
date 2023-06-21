@@ -56,15 +56,7 @@ function App() {
       window.localStorage.removeItem("cart");
     }
     //set new cart data
-    let storableCartData = cartData.map((item) => {
-      return {
-        _id: item._id,
-        qty: item.qty,
-        price: item.price,
-        total: item.total,
-      };
-    });
-    const data = JSON.stringify(storableCartData);
+    const data = JSON.stringify(cartData);
     window.localStorage.setItem("cart", data);
     if (user) {
       //send or update user cart database in server
