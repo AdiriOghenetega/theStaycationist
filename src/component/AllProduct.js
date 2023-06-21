@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CardFeature from "./CardFeature";
 import FilterProduct from "./FilterProduct";
-import {HiHomeModern} from "react-icons/hi2"
+import { HiHomeModern } from "react-icons/hi2";
 
-
-const AllProduct = ({ heading,selectedCategory }) => {
+const AllProduct = ({ heading, selectedCategory }) => {
   const productData = useSelector((state) => state.product.productList);
   let categoryList = [...new Set(productData.map((el) => el.category))];
 
@@ -13,24 +12,28 @@ const AllProduct = ({ heading,selectedCategory }) => {
   const [filterby, setFilterBy] = useState("");
   const [dataFilter, setDataFilter] = useState([]);
 
-  let relatedProducts = []
-  let relatedCategory = []
-  if(selectedCategory){
-    relatedProducts = productData.filter(el=>el.category.toLowerCase() === selectedCategory.toLowerCase())
-    relatedCategory = categoryList.filter(el=>el.toLowerCase() === selectedCategory.toLowerCase())
-    categoryList = relatedCategory
+  let relatedProducts = [];
+  let relatedCategory = [];
+  if (selectedCategory) {
+    relatedProducts = productData.filter(
+      (el) => el.category.toLowerCase() === selectedCategory.toLowerCase()
+    );
+    relatedCategory = categoryList.filter(
+      (el) => el.toLowerCase() === selectedCategory.toLowerCase()
+    );
+    categoryList = relatedCategory;
   }
 
   useEffect(() => {
-    if(selectedCategory){
-      setDataFilter(relatedProducts)
-    }else{
+    if (selectedCategory) {
+      setDataFilter(relatedProducts);
+    } else {
       setDataFilter(productData);
     }
   }, [productData]);
 
   const handleFilterProduct = (category) => {
-    setFilterBy(category)
+    setFilterBy(category);
     const filter = productData.filter(
       (el) => el.category.toLowerCase() === category.toLowerCase()
     );
@@ -43,7 +46,9 @@ const AllProduct = ({ heading,selectedCategory }) => {
 
   return (
     <div className="my-5 flex flex-col w-full items-center">
-      <h2 className="font-bold text-3xl text-red-900 mt-4 bg-[rgb(255,255,255,.8)] p-2 rounded w-auto">{heading}</h2>
+      <h2 className="font-bold text-3xl text-red-900 mt-4 bg-[rgb(255,255,255,.8)] p-2 rounded w-auto">
+        {heading}
+      </h2>
       {/* <div className="flex md:gap-5 overflow-scroll scroll-smooth scrollbar-none transition-all max-w-full py-2">
         {categoryList[0] ? (
           categoryList.map((el) => {
@@ -70,7 +75,7 @@ const AllProduct = ({ heading,selectedCategory }) => {
                 <CardFeature
                   key={el._id}
                   id={el._id}
-                  image={el.image}
+                  image={el.images[0]}
                   name={el.name}
                   category={el.category}
                   price={el.price}
@@ -81,8 +86,7 @@ const AllProduct = ({ heading,selectedCategory }) => {
                 />
               );
             })
-          : 
-          loadingArrayFeature.map((el,index) => (
+          : loadingArrayFeature.map((el, index) => (
               <CardFeature loading="Loading..." key={index} />
             ))}
       </div>

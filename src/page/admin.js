@@ -14,14 +14,15 @@ const Admin = () => {
   const [data, setData] = useState({
     name: "",
     category: "",
-    image: "",
     price: "",
     description: "",
-    location :"",
-    rooms:"",
-    baths:"",
+    location: "",
+    rooms: "",
+    baths: "",
+    images: [],
   });
 
+  console.log(data.images);
 
   const [loading, setLoading] = useState(false);
 
@@ -54,7 +55,7 @@ const Admin = () => {
   //fetch product
   useEffect(() => {
     (async () => {
-      try{
+      try {
         setLoading(true);
         const res = await fetch(`${process.env.REACT_APP_BASE_URL}/product`, {
           credentials: "include",
@@ -62,39 +63,36 @@ const Admin = () => {
         const resData = await res.json();
         setProductData(resData);
         setLoading(false);
-      }catch(error){
-        console.log(error)
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, []);
 
-
   //fetch orders
   useEffect(() => {
     (async () => {
-      try{
+      try {
         setOrderLoading(true);
         const fetchOrders = await fetch(
           `${process.env.REACT_APP_BASE_URL}/getorders`
         );
         const res = await fetchOrders.json();
-        
+
         if (res) {
           res.data && dispatch(setOrderData(res.data));
           res.message && toast(res.message);
           setOrderLoading(false);
         }
-      }catch(error){
-        console.log(error)
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, []);
 
-
   const deleteOptions = productData.map((el) => {
     return { label: el.name, value: el._id };
   });
-
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -107,17 +105,16 @@ const Admin = () => {
     });
   };
 
-
-
   const uploadImage = async (e) => {
-    console.log("upload called")
+    console.log("upload called");
     const data = await ImagetoBase64(e.target.files[0]);
 
+    console.log(data);
 
     setData((prev) => {
       return {
         ...prev,
-        image: data,
+        images: [...prev.images, data],
       };
     });
   };
@@ -126,45 +123,49 @@ const Admin = () => {
     e.preventDefault();
     console.log(data);
 
-    const { name, image, category, price, location } = data;
+    if (user?._id) {
+      const { name, images, category, price, location } = data;
 
-    if (name && image && category && price && location) {
-      try{
-        setLoading(true);
-        const fetchData = await fetch(
-          `${process.env.REACT_APP_BASE_URL}/uploadProduct/${user?._id}`,
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }
-        );
-  
-        const fetchRes = await fetchData.json();
-  
-        console.log(fetchRes);
-        toast(fetchRes.message);
-        setLoading(false);
-  
-        setData(() => {
-          return {
-            name: "",
-            category: "",
-            image: "",
-            price: "",
-            description: "",
-            location:"",
-            rooms:"",
-            baths:""
-          };
-        });
-      }catch(error){
-        console.log(error)
+      if (name && images && category && price && location) {
+        try {
+          setLoading(true);
+          const fetchData = await fetch(
+            `${process.env.REACT_APP_BASE_URL}/uploadProduct/${user?._id}`,
+            {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(data),
+            }
+          );
+
+          const fetchRes = await fetchData.json();
+
+          console.log(fetchRes);
+          toast(fetchRes.message);
+          setLoading(false);
+
+          setData(() => {
+            return {
+              name: "",
+              category: "",
+              price: "",
+              description: "",
+              location: "",
+              rooms: "",
+              baths: "",
+              images: [],
+            };
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        toast("Enter required Fields");
       }
     } else {
-      toast("Enter required Fields");
+      toast("only admins can perform this action");
     }
   };
 
@@ -186,7 +187,7 @@ const Admin = () => {
   };
 
   const updateOrderStatus = async () => {
-    try{
+    try {
       setOrderLoading(true);
       const updateOrders = await fetch(
         `${process.env.REACT_APP_BASE_URL}/updateorder?order_id=${orderList[count]._id}&user_id=${user._id}`,
@@ -199,20 +200,20 @@ const Admin = () => {
         }
       );
       const res = await updateOrders.json();
-  
+
       if (res) {
         res.data && dispatch(setOrderData(res.data));
         setOrderLoading(false);
         res.message && toast(res.message);
       }
-    }catch(error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const deleteOrderList = async () => {
-    try{
-      if(user?._id){
+    try {
+      if (user?._id) {
         setOrderLoading(true);
         const deleteOrder = await fetch(
           `${process.env.REACT_APP_BASE_URL}/deleteall/${user?._id}`,
@@ -225,7 +226,7 @@ const Admin = () => {
           }
         );
         const res = await deleteOrder.json();
-    
+
         if (res) {
           res.data && dispatch(setDataProduct(res.data));
           setOrderLoading(false);
@@ -234,16 +235,16 @@ const Admin = () => {
             window.location.reload(true);
           }, 1000);
         }
-      }else{
-        toast("only admins can perform this action")
+      } else {
+        toast("only admins can perform this action");
       }
-    }catch(error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const DeleteOrder = async () => {
-    try{
+    try {
       setOrderLoading(true);
       const deleteOrder = await fetch(
         `${process.env.REACT_APP_BASE_URL}/deleteone?order_id=${orderList[count]._id}&user_id=${user._id}`,
@@ -256,7 +257,7 @@ const Admin = () => {
         }
       );
       const res = await deleteOrder.json();
-  
+
       if (res) {
         res.data && dispatch(setOrderData(res.data));
         setOrderLoading(false);
@@ -265,8 +266,8 @@ const Admin = () => {
           window.location.reload(true);
         }, 1000);
       }
-    }catch(error){
-console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -282,7 +283,7 @@ console.log(error)
   };
 
   const handleRoleSubmit = async () => {
-    try{
+    try {
       setRoleLoading(true);
       const updateOrders = await fetch(
         `${process.env.REACT_APP_BASE_URL}/changeuserrole/${user._id}`,
@@ -295,7 +296,7 @@ console.log(error)
         }
       );
       const res = await updateOrders.json();
-  
+
       if (res) {
         toast(res.message);
         setRoleLoading(false);
@@ -304,8 +305,8 @@ console.log(error)
           role: "",
         });
       }
-    }catch(error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -314,7 +315,7 @@ console.log(error)
   };
 
   const handleProductDelete = async () => {
-    try{
+    try {
       setLoadingProductDelete(true);
       const deleteProduct = await fetch(
         `${process.env.REACT_APP_BASE_URL}/deleteproduct/${user?._id}`,
@@ -327,7 +328,7 @@ console.log(error)
         }
       );
       const res = await deleteProduct.json();
-  
+
       if (res) {
         res.data && dispatch(setOrderData(res.data));
         setLoadingProductDelete(false);
@@ -336,8 +337,8 @@ console.log(error)
           window.location.reload(true);
         }, 1000);
       }
-    }catch(error){
-     console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -367,14 +368,11 @@ console.log(error)
         </select>
         {roleLoading ? (
           <div className="flex flex-col justify-center items-center mt-4">
-            <GiHamburger
-              size="25"
-              className="animate-spin text-[rgb(233,142,30)]"
-            />
+            <GiHamburger size="25" className="animate-spin text-red-900" />
           </div>
         ) : (
           <button
-            className="bg-[rgb(233,142,30)] hover:bg-orange-600 text-white w-fit font-medium p-2 rounded my-2 drop-shadow m-auto"
+            className="bg-red-900 hover:bg-orange-600 text-white w-fit font-medium p-2 rounded my-2 drop-shadow m-auto"
             onClick={handleRoleSubmit}
           >
             Change User Role
@@ -411,14 +409,20 @@ console.log(error)
 
         <label htmlFor="image">
           Image
-          <div className="h-40 w-full bg-slate-200  rounded flex items-center justify-center cursor-pointer">
-            {data.image ? (
-              <img src={data.image} className="h-full" />
-            ) : (
-              <span className="text-5xl">
-                <BsCloudUpload />
-              </span>
-            )}
+          <div className="h-48 w-full bg-slate-200 relative rounded flex-col items-center justify-center cursor-pointer">
+            <div className="flex flex-wrap">
+              {data.images.length > 0 &&
+                data.images.map((elem, index) => {
+                  return (
+                    <div key={index}>
+                      <img src={elem} className="h-[90px] w-[90px]" />
+                    </div>
+                  );
+                })}
+            </div>
+            <div className="text-5xl absolute top-[40%] left-[47%]">
+              <BsCloudUpload />
+            </div>
 
             <input
               type={"file"}
@@ -479,16 +483,12 @@ console.log(error)
           onChange={handleOnChange}
         ></textarea>
 
-
         {loading ? (
           <div className="flex flex-col justify-center items-center">
-            <GiHamburger
-              size="25"
-              className="animate-spin text-[rgb(233,142,30)]"
-            />
+            <GiHamburger size="25" className="animate-spin text-red-900" />
           </div>
         ) : (
-          <button className="bg-[rgb(233,142,30)] hover:bg-orange-600 text-white font-medium p-2 w-fit rounded my-2 drop-shadow m-auto">
+          <button className="bg-red-900 hover:bg-orange-600 text-white font-medium p-2 w-fit rounded my-2 drop-shadow m-auto">
             Save
           </button>
         )}
@@ -508,14 +508,11 @@ console.log(error)
         />
         {loadingProductDelete ? (
           <div className="flex flex-col justify-center items-center">
-            <GiHamburger
-              size="25"
-              className="animate-spin text-[rgb(233,142,30)]"
-            />
+            <GiHamburger size="25" className="animate-spin text-red-900" />
           </div>
         ) : (
           <button
-            className="bg-[rgb(233,142,30)] hover:bg-orange-600 text-white text-lg font-medium p-1 rounded my-2 drop-shadow max-w-fit m-auto"
+            className="bg-red-900 hover:bg-orange-600 text-white text-lg font-medium p-1 rounded my-2 drop-shadow max-w-fit m-auto"
             onClick={handleProductDelete}
           >
             Delete Selected products
@@ -537,7 +534,7 @@ console.log(error)
           <option>Phrc</option>
         </select>
         <button
-          className="bg-[rgb(233,142,30)] hover:bg-orange-600 text-white w-fit font-medium p-2 rounded my-2 drop-shadow m-auto"
+          className="bg-red-900 hover:bg-orange-600 text-white w-fit font-medium p-2 rounded my-2 drop-shadow m-auto"
           onClick={() => navigate(`/admin/${location}`)}
         >
           GO
@@ -548,13 +545,13 @@ console.log(error)
         <h2>Order List</h2>
         <div className="flex justify-between items-center">
           <button
-            className="w-fit bg-[rgb(233,142,30)] hover:bg-orange-600 cursor-pointer text-white text-left p-2 rounded mt-4"
+            className="w-fit bg-red-900 hover:bg-orange-600 cursor-pointer text-white text-left p-2 rounded mt-4"
             onClick={() => window.location.reload(true)}
           >
             Refresh Order-List
           </button>
           <button
-            className="w-fit bg-[rgb(233,142,30)] hover:bg-orange-600 cursor-pointer text-white text-left p-2 rounded ml-4 mt-4"
+            className="w-fit bg-red-900 hover:bg-orange-600 cursor-pointer text-white text-left p-2 rounded ml-4 mt-4"
             onClick={deleteOrderList}
           >
             Delete Order-List
@@ -587,9 +584,7 @@ console.log(error)
             key={orderList[count]?._id}
             className="m-auto w-full mt-4 shadow flex flex-col p-3 bg-slate-200/70"
           >
-            <h2 className="text-bold text-[rgb(233,142,30)]">
-              Customer Details :{" "}
-            </h2>
+            <h2 className="text-bold text-red-900">Customer Details : </h2>
             <div className="m-auto w-full mt-4 shadow flex flex-col p-3 bg-slate-300/70">
               <p className="text-sm">
                 Customer Name :{" "}
@@ -602,15 +597,19 @@ console.log(error)
                     orderList[count]?.guest?.lastName}
               </p>
               <p className="text-sm">
-                Customer Mobile : {orderList[count]?.user?.mobile ? orderList[count]?.user?.mobile: orderList[count]?.guest?.mobile}
+                Customer Mobile :{" "}
+                {orderList[count]?.user?.mobile
+                  ? orderList[count]?.user?.mobile
+                  : orderList[count]?.guest?.mobile}
               </p>
               <p className="text-sm">
-                Customer Address : {orderList[count]?.user?.address ? orderList[count]?.user?.address: orderList[count]?.guest?.address}
+                Customer Address :{" "}
+                {orderList[count]?.user?.address
+                  ? orderList[count]?.user?.address
+                  : orderList[count]?.guest?.address}
               </p>
             </div>
-            <h2 className="text-bold mt-2 text-[rgb(233,142,30)]">
-              Cart Items :{" "}
-            </h2>
+            <h2 className="text-bold mt-2 text-red-900">Cart Items : </h2>
             {orderList[count]?.cart?.map((elem) => {
               return (
                 <div
@@ -623,9 +622,7 @@ console.log(error)
                 </div>
               );
             })}
-            <h2 className="text-bold mt-2 text-[rgb(233,142,30)]">
-              Other Details :{" "}
-            </h2>
+            <h2 className="text-bold mt-2 text-red-900">Other Details : </h2>
             <h2 className="text-bold m-auto w-full mt-2 shadow flex flex-col p-3 bg-slate-300/70">
               Total Amount : {orderList[count]?.amount}
             </h2>
@@ -652,13 +649,13 @@ console.log(error)
                 <div className="flex flex-col justify-center items-center mt-2">
                   <GiHamburger
                     size="25"
-                    className="animate-spin text-[rgb(233,142,30)]"
+                    className="animate-spin text-red-900"
                   />
                 </div>
               ) : (
                 orderList[count]?.orderStatus !== "Delivered" && (
                   <button
-                    className="bg-[rgb(233,142,30)] hover:bg-orange-600 text-white font-medium p-2 w-fit rounded my-2 drop-shadow m-auto"
+                    className="bg-red-900 hover:bg-orange-600 text-white font-medium p-2 w-fit rounded my-2 drop-shadow m-auto"
                     onClick={updateOrderStatus}
                   >
                     Mark Order Delivered
@@ -666,7 +663,7 @@ console.log(error)
                 )
               )}
               <button
-                className="bg-[rgb(233,142,30)] hover:bg-orange-600 text-white font-medium p-2 w-fit rounded ml-2 my-2 drop-shadow m-auto"
+                className="bg-red-900 hover:bg-orange-600 text-white font-medium p-2 w-fit rounded ml-2 my-2 drop-shadow m-auto"
                 onClick={DeleteOrder}
               >
                 Delete Order
@@ -675,13 +672,10 @@ console.log(error)
           </div>
         ) : orderLoading ? (
           <div className="flex flex-col justify-center items-center">
-            <GiHamburger
-              size="25"
-              className="animate-spin text-[rgb(233,142,30)]"
-            />
+            <GiHamburger size="25" className="animate-spin text-red-900" />
           </div>
         ) : (
-          <h2 className="text-bold mt-2 text-[rgb(233,142,30)]">
+          <h2 className="text-bold mt-2 text-red-900">
             You have no orders at the moment
           </h2>
         )}

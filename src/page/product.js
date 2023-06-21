@@ -15,6 +15,8 @@ const Product = () => {
 
   const productDisplay = productData?.filter((el) => el._id === filterby)[0];
 
+  console.log(productDisplay);
+
   const handleAddCartProduct = (e) => {
     dispatch(addCartItem(productDisplay));
   };
@@ -40,28 +42,35 @@ const Product = () => {
 
   return (
     <div className="p-2 md:p-4 bg-slate-100">
-      <div className="w-full max-w-[95%] p-6 m-auto bg-[rgb(255,255,255,.8)]">
+      <div className="w-full md:max-w-[95%] p-2 md:p-6 m-auto bg-[rgb(255,255,255,.8)]">
         <div className="ml-auto flex">
           <button
             onClick={prevTop}
-            className="bg-slate-100 hover:bg-slate-300 text-lg p-1"
+            className="bg-slate-100 hover:bg-slate-300 text-lg p-1 invisible md:visible"
           >
             <GrPrevious />
           </button>
           <div
-            className="flex gap-5 overflow-scroll scrollbar-none scroll-smooth transition-all"
+            className="flex overflow-scroll scrollbar-none scroll-smooth transition-all"
             ref={slideRef}
           >
-            <div className="max-w-sm  overflow-hidden h-[350px] w-[350px] p-5">
-              <img
-                src={productDisplay?.image}
-                className="hover:scale-105 transition-all h-full w-full"
-              />
-            </div>
+            {productDisplay?.images.map((elem, index) => {
+              return (
+                <div
+                  className="min-w-[330px] h-[350px] w-[330px] mx-2"
+                  key={index}
+                >
+                  <img
+                    src={elem}
+                    className="hover:scale-105 transition-all h-full w-full"
+                  />
+                </div>
+              );
+            })}
           </div>
           <button
             onClick={nextTop}
-            className="bg-slate-100 hover:bg-slate-300 text-lg p-1 ml-auto"
+            className="bg-slate-100 hover:bg-slate-300 text-lg p-1 ml-auto invisible md:visible"
           >
             <GrNext />
           </button>
@@ -92,9 +101,9 @@ const Product = () => {
               Add To Cart
             </button>
           </div>
-          <div className="flex items-center justify-between w-[10%] text-blue-500 mt-2">
-            {productDisplay.rooms} <FaBed size="20px" /> |{" "}
-            {productDisplay.baths} <FaBath size="20px" />
+          <div className="flex items-center justify-between w-[150px] md:w-[10%] text-blue-500 mt-2">
+            {productDisplay?.rooms} <FaBed size="20px" /> |{" "}
+            {productDisplay?.baths} <FaBath size="20px" />
             <BsGridFill size="20px" />
           </div>
           <div>
