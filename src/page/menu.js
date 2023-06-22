@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import CardFeature from "../component/CardFeature";
 import { GrPrevious, GrNext } from "react-icons/gr";
@@ -23,7 +23,7 @@ const Menu = () => {
   return (
     <div className="p-2 md:p-4 bg-slate-100">
       <div className="w-full  md:h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg md:flex justify-around relative">
-        <div className="w-full md:w-[65%] max-h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg ">
+        <div className="w-full md:w-[63%] max-h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg ">
           <div className="h-full overflow-hidden w-full relative">
             <img
               src={
@@ -33,7 +33,7 @@ const Menu = () => {
             />
           </div>
         </div>
-        <div className="w-full md:w-[30%] max-h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg ">
+        <div className="w-full md:w-[35%] max-h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg ">
           <div className="h-full overflow-hidden w-full relative">
             <img src={accomodations} className="h-full w-full" />
           </div>
@@ -43,7 +43,7 @@ const Menu = () => {
         <div className="w-full md:w-[60%] bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg">
           <div className="max-h-fit">
             <div className="flex w-full items-center">
-              <h2 className="font-bold text-2xl text-red-900 mb-4 bg-[rgb(255,255,255,.8)] p-2 rounded">
+              <h2 className="font-bold text-2xl text-red-900 mb-4 p-2 rounded">
                 Top Listers
               </h2>
               <div className="ml-auto flex">
@@ -78,6 +78,7 @@ const Menu = () => {
                         location={el.location}
                         rooms={el.rooms}
                         baths={el.baths}
+                        description={el.description}
                       />
                     );
                   })

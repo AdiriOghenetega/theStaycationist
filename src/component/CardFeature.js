@@ -21,21 +21,10 @@ const CardFeature = ({
 }) => {
   const dispatch = useDispatch();
 
-  const handleAddCartProduct = (e) => {
-    dispatch(
-      addCartItem({
-        _id: id,
-        name,
-        price,
-        category,
-        image,
-      })
-    );
-  };
 
   return (
     <div
-      className={`w-full mt-2 min-w-[200px] w-[350px] bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg cursor-pointer flex flex-col ${
+      className={`w-full mt-2 min-w-[350px] w-[350px] bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg cursor-pointer flex flex-col ${
         loading && "animate-pulse"
       }`}
     >
@@ -51,7 +40,7 @@ const CardFeature = ({
             <div className="pb-5 px-4">
               <div className="flex justify-between items-end">
                 <h3 className="font-semibold text-slate-600 capitalize text-lg mt-4 whitespace-nowrap overflow-hidden">
-                  {name}
+                  {name.substring(0,15)}...
                 </h3>
                 <p className=" font-bold">
                   <span className="text-green-500">₦</span>
@@ -64,11 +53,11 @@ const CardFeature = ({
               </div>
               <p className=" text-slate-900 font-bold">
                 {" "}
-                <span className="text-slate-500">{location}</span>
+                <span className="text-slate-500 text-sm">{location}</span>
               </p>
 
               <p className=" text-slate-900 font-bold">
-                <span className="text-slate-500">{description?.substring(0,50)}...</span>
+                <span className="text-slate-500">{description?.substring(0,35)}...</span>
               </p>
             </div>
           </Link>

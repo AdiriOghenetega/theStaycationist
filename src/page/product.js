@@ -101,7 +101,7 @@ const Product = () => {
               Add To Cart
             </button>
           </div>
-          <div className="flex items-center justify-between w-[150px] md:w-[10%] text-blue-500 mt-2">
+          <div className="flex items-center justify-between w-[150px] text-blue-500 mt-2">
             {productDisplay?.rooms} <FaBed size="20px" /> |{" "}
             {productDisplay?.baths} <FaBath size="20px" />
             <BsGridFill size="20px" />

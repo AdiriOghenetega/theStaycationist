@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { BsCloudUpload } from "react-icons/bs";
-import { GiHamburger } from "react-icons/gi";
+import {HiHomeModern} from "react-icons/hi2"
 import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setOrderData, setDataProduct } from "../redux/productSlice";
 import { GrPrevious, GrNext } from "react-icons/gr";
-import Banner from "../component/banner";
+
 
 const Admin = () => {
   const [data, setData] = useState({
@@ -16,7 +16,9 @@ const Admin = () => {
     category: "",
     price: "",
     description: "",
-    location: "",
+    address: "",
+    state: "",
+    country: "",
     rooms: "",
     baths: "",
     images: [],
@@ -124,9 +126,9 @@ const Admin = () => {
     console.log(data);
 
     if (user?._id) {
-      const { name, images, category, price, location } = data;
+      const { name, images, category, price, address,state,country } = data;
 
-      if (name && images && category && price && location) {
+      if (name && images && category && price && address && state && country) {
         try {
           setLoading(true);
           const fetchData = await fetch(
@@ -152,7 +154,9 @@ const Admin = () => {
               category: "",
               price: "",
               description: "",
-              location: "",
+              address: "",
+              state: "",
+              country: "",
               rooms: "",
               baths: "",
               images: [],
@@ -368,11 +372,11 @@ const Admin = () => {
         </select>
         {roleLoading ? (
           <div className="flex flex-col justify-center items-center mt-4">
-            <GiHamburger size="25" className="animate-spin text-red-900" />
+            <HiHomeModern size="25" className="animate-spin text-red-900" />
           </div>
         ) : (
           <button
-            className="bg-red-900 hover:bg-orange-600 text-white w-fit font-medium p-2 rounded my-2 drop-shadow m-auto"
+            className="bg-red-900 hover:bg-red-700 text-white w-fit font-medium p-2 rounded my-2 drop-shadow m-auto"
             onClick={handleRoleSubmit}
           >
             Change User Role
@@ -465,12 +469,30 @@ const Admin = () => {
           value={data.baths}
         />
 
-        <label htmlFor="location">Location</label>
+        <label htmlFor="address">Address</label>
         <input
           type={"text"}
-          value={data.location}
+          value={data.address}
           className="bg-slate-200 p-1 my-1 resize-none"
-          name="location"
+          name="address"
+          onChange={handleOnChange}
+        />
+
+        <label htmlFor="state">State</label>
+        <input
+          type={"text"}
+          value={data.state}
+          className="bg-slate-200 p-1 my-1 resize-none"
+          name="state"
+          onChange={handleOnChange}
+        />
+
+        <label htmlFor="country">Country</label>
+        <input
+          type={"text"}
+          value={data.country}
+          className="bg-slate-200 p-1 my-1 resize-none"
+          name="country"
           onChange={handleOnChange}
         />
 
@@ -485,10 +507,10 @@ const Admin = () => {
 
         {loading ? (
           <div className="flex flex-col justify-center items-center">
-            <GiHamburger size="25" className="animate-spin text-red-900" />
+            <HiHomeModern size="25" className="animate-spin text-red-900" />
           </div>
         ) : (
-          <button className="bg-red-900 hover:bg-orange-600 text-white font-medium p-2 w-fit rounded my-2 drop-shadow m-auto">
+          <button className="bg-red-900 hover:bg-red-700 text-white font-medium p-2 w-fit rounded my-2 drop-shadow m-auto">
             Save
           </button>
         )}
@@ -508,11 +530,11 @@ const Admin = () => {
         />
         {loadingProductDelete ? (
           <div className="flex flex-col justify-center items-center">
-            <GiHamburger size="25" className="animate-spin text-red-900" />
+            <HiHomeModern size="25" className="animate-spin text-red-900" />
           </div>
         ) : (
           <button
-            className="bg-red-900 hover:bg-orange-600 text-white text-lg font-medium p-1 rounded my-2 drop-shadow max-w-fit m-auto"
+            className="bg-red-900 hover:bg-red-700 text-white text-lg font-medium p-1 rounded my-2 drop-shadow max-w-fit m-auto"
             onClick={handleProductDelete}
           >
             Delete Selected products
@@ -534,7 +556,7 @@ const Admin = () => {
           <option>Phrc</option>
         </select>
         <button
-          className="bg-red-900 hover:bg-orange-600 text-white w-fit font-medium p-2 rounded my-2 drop-shadow m-auto"
+          className="bg-red-900 hover:bg-red-700 text-white w-fit font-medium p-2 rounded my-2 drop-shadow m-auto"
           onClick={() => navigate(`/admin/${location}`)}
         >
           GO
@@ -545,13 +567,13 @@ const Admin = () => {
         <h2>Order List</h2>
         <div className="flex justify-between items-center">
           <button
-            className="w-fit bg-red-900 hover:bg-orange-600 cursor-pointer text-white text-left p-2 rounded mt-4"
+            className="w-fit bg-red-900 hover:bg-red-700 cursor-pointer text-white text-left p-2 rounded mt-4"
             onClick={() => window.location.reload(true)}
           >
             Refresh Order-List
           </button>
           <button
-            className="w-fit bg-red-900 hover:bg-orange-600 cursor-pointer text-white text-left p-2 rounded ml-4 mt-4"
+            className="w-fit bg-red-900 hover:bg-red-700 cursor-pointer text-white text-left p-2 rounded ml-4 mt-4"
             onClick={deleteOrderList}
           >
             Delete Order-List
@@ -647,7 +669,7 @@ const Admin = () => {
               </h2>
               {orderLoading ? (
                 <div className="flex flex-col justify-center items-center mt-2">
-                  <GiHamburger
+                  <HiHomeModern
                     size="25"
                     className="animate-spin text-red-900"
                   />
@@ -655,7 +677,7 @@ const Admin = () => {
               ) : (
                 orderList[count]?.orderStatus !== "Delivered" && (
                   <button
-                    className="bg-red-900 hover:bg-orange-600 text-white font-medium p-2 w-fit rounded my-2 drop-shadow m-auto"
+                    className="bg-red-900 hover:bg-red-700 text-white font-medium p-2 w-fit rounded my-2 drop-shadow m-auto"
                     onClick={updateOrderStatus}
                   >
                     Mark Order Delivered
@@ -663,7 +685,7 @@ const Admin = () => {
                 )
               )}
               <button
-                className="bg-red-900 hover:bg-orange-600 text-white font-medium p-2 w-fit rounded ml-2 my-2 drop-shadow m-auto"
+                className="bg-red-900 hover:bg-red-700 text-white font-medium p-2 w-fit rounded ml-2 my-2 drop-shadow m-auto"
                 onClick={DeleteOrder}
               >
                 Delete Order
@@ -672,7 +694,7 @@ const Admin = () => {
           </div>
         ) : orderLoading ? (
           <div className="flex flex-col justify-center items-center">
-            <GiHamburger size="25" className="animate-spin text-red-900" />
+            <HiHomeModern size="25" className="animate-spin text-red-900" />
           </div>
         ) : (
           <h2 className="text-bold mt-2 text-red-900">
