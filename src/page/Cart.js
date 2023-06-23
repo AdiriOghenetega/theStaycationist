@@ -7,6 +7,7 @@ import { setCartData } from "../redux/productSlice";
 import { Link, useNavigate } from "react-router-dom";
 import {HiHomeModern} from "react-icons/hi2"
 
+
 const Cart = () => {
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [guestData, setGuestData] = useState({
@@ -16,9 +17,9 @@ const Cart = () => {
     mobile: "",
     address: "",
   });
+  
   const productCartItem = useSelector((state) => state.product.cartItem);
 
-  console.log(productCartItem)
 
   const user = useSelector((state) => state.user);
 
@@ -122,11 +123,11 @@ const Cart = () => {
             {/* total cart item  */}
             <div className="w-full max-w-md  ml-auto bg-[rgb(255,255,255,.8)] p-2 max-h-fit">
               <h2 className="bg-blue-500 text-white p-2 text-lg">Summary</h2>
-              <div className="flex w-full py-2 text-lg border-b">
+              <div className="flex w-full p-2 text-lg border-b">
                 <p>Total Qty :</p>
                 <p className="ml-auto w-32 font-bold">{totalQty}</p>
               </div>
-              <div className="flex w-full py-2 text-lg border-b">
+              <div className="flex w-full p-2 text-lg border-b">
                 <p>Total Price</p>
                 <p className="ml-auto w-32 font-bold">
                   <span className="text-green-500">₦</span> {totalPrice}
@@ -201,7 +202,7 @@ const Cart = () => {
                 </div>
               ) : (
                 <button
-                  className="bg-red-900 hover:bg-orange-600 w-full text-lg font-bold py-2 text-white"
+                  className="bg-red-900 hover:bg-red-600 w-full text-lg font-bold py-2 text-white"
                   onClick={handlePayment}
                 >
                   Proceed To Payment
@@ -218,7 +219,7 @@ const Cart = () => {
               />
               <p className="text-red-900 text-3xl font-bold mt-4">Empty Cart</p>
               <Link to={`/`}>
-                <button className="w-full max-w-[150px] m-auto  bg-red-900 hover:bg-orange-600 cursor-pointer text-white text-center p-2 rounded mt-4">
+                <button className="w-full max-w-[150px] m-auto  bg-red-900 hover:bg-red-600 cursor-pointer text-white text-center p-2 rounded mt-4">
                   Start Shopping
                 </button>
               </Link>

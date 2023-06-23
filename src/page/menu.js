@@ -22,7 +22,7 @@ const Menu = () => {
 
   return (
     <div className="p-2 md:p-4 bg-slate-100">
-      <div className="w-full  md:h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg md:flex justify-around relative">
+      <div className="w-full md:h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg md:flex justify-around relative">
         <div className="w-full md:w-[63%] max-h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg ">
           <div className="h-full overflow-hidden w-full relative">
             <img
