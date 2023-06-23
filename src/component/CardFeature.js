@@ -42,7 +42,7 @@ const CardFeature = ({
                 <h3 className="font-semibold text-slate-600 capitalize text-lg mt-4 whitespace-nowrap overflow-hidden">
                   {name.substring(0,15)}...
                 </h3>
-                <p className=" font-bold">
+                <p className="text-sm font-bold">
                   <span className="text-green-500">₦</span>
                   <span className="text-slate-500">{millify(price)}</span>
                 </p>
@@ -56,7 +56,7 @@ const CardFeature = ({
                 <span className="text-slate-500 text-sm">{location}</span>
               </p>
 
-              <p className=" text-slate-900 font-bold">
+              <p className=" text-slate-900 text-sm font-bold">
                 <span className="text-slate-500">{description?.substring(0,35)}...</span>
               </p>
             </div>

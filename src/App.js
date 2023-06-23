@@ -1,4 +1,5 @@
 import "./App.css";
+import "react-calendar/dist/Calendar.css";
 import Header from "./component/Header";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
@@ -17,17 +18,14 @@ function App() {
 
   //reload product on refresh
   useEffect(() => {
-   
-      (async () => {
-        const res = await fetch(`${process.env.REACT_APP_BASE_URL}/product`, {
-          credentials: "include",
-        });
-        const resData = await res.json();
-       
-        dispatch(setDataProduct(resData));
-        
-      })();
-    
+    (async () => {
+      const res = await fetch(`${process.env.REACT_APP_BASE_URL}/product`, {
+        credentials: "include",
+      });
+      const resData = await res.json();
+
+      dispatch(setDataProduct(resData));
+    })();
   }, []);
 
   //reload user on refresh
@@ -43,8 +41,6 @@ function App() {
       }
     })();
   }, []);
-  
-
 
   //store cart data
   useEffect(() => {

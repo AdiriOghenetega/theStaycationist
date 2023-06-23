@@ -5,8 +5,7 @@ import emptyCartImage from "../assets/empty-cart.gif";
 import { toast } from "react-hot-toast";
 import { setCartData } from "../redux/productSlice";
 import { Link, useNavigate } from "react-router-dom";
-import {HiHomeModern} from "react-icons/hi2"
-
+import { HiHomeModern } from "react-icons/hi2";
 
 const Cart = () => {
   const [paymentLoading, setPaymentLoading] = useState(false);
@@ -17,9 +16,9 @@ const Cart = () => {
     mobile: "",
     address: "",
   });
-  
-  const productCartItem = useSelector((state) => state.product.cartItem);
 
+  const productCartItem = useSelector((state) => state.product.cartItem);
+  console.log(productCartItem);
 
   const user = useSelector((state) => state.user);
 
@@ -27,14 +26,14 @@ const Cart = () => {
   const dispatch = useDispatch();
   const location = localStorage.getItem("location");
 
-  const totalPrice = productCartItem.reduce(
-    (acc, curr) => acc + parseInt(curr.total),
+  let totalPrice = productCartItem.reduce(
+    (acc, curr) => acc + parseInt(curr.price),
     0
   );
-  const totalQty = productCartItem.reduce(
-    (acc, curr) => acc + parseInt(curr.qty),
-    0
-  );
+
+  //vat = 7.5%
+  const totalVat = (7.5 / 100) * parseInt(totalPrice);
+  totalPrice = totalPrice + parseInt(totalVat);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -92,7 +91,6 @@ const Cart = () => {
     }
   };
 
-
   return (
     <div className="bg-white h-[calc(100vh-4rem)] ">
       <div className="p-2 md:p-4">
@@ -110,11 +108,11 @@ const Cart = () => {
                     key={el._id}
                     id={el._id}
                     name={el.name}
-                    image={el.image}
+                    image={el.images[0]}
                     category={el.category}
-                    qty={el.qty}
                     total={el.total}
                     price={el.price}
+                    date={el.date}
                   />
                 );
               })}
@@ -124,8 +122,10 @@ const Cart = () => {
             <div className="w-full max-w-md  ml-auto bg-[rgb(255,255,255,.8)] p-2 max-h-fit">
               <h2 className="bg-blue-500 text-white p-2 text-lg">Summary</h2>
               <div className="flex w-full p-2 text-lg border-b">
-                <p>Total Qty :</p>
-                <p className="ml-auto w-32 font-bold">{totalQty}</p>
+                <p>Total Vat</p>
+                <p className="ml-auto w-32 font-bold">
+                  <span className="text-green-500">₦</span> {totalVat}
+                </p>
               </div>
               <div className="flex w-full p-2 text-lg border-b">
                 <p>Total Price</p>

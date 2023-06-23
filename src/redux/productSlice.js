@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 
-const cartDataFromStorage = window.localStorage.getItem('cart')
+const cartDataFromStorage = window.localStorage.getItem("cart");
 
 const initialState = {
   productList: [],
-  cartItem: cartDataFromStorage ? [...JSON.parse(cartDataFromStorage)]:[],
-  orderList:[]
+  cartItem: cartDataFromStorage ? [...JSON.parse(cartDataFromStorage)] : [],
+  orderList: [],
 };
 
 export const productSlice = createSlice({
@@ -17,10 +17,10 @@ export const productSlice = createSlice({
       state.productList = [...action.payload];
     },
     setCartData: (state, action) => {
-      if(action.payload.length){
+      if (action.payload.length) {
         state.cartItem = [...action.payload];
-      }else{
-        state.cartItem = []
+      } else {
+        state.cartItem = [];
       }
     },
     setOrderData: (state, action) => {
@@ -32,46 +32,19 @@ export const productSlice = createSlice({
         toast("Already Item in Cart");
       } else {
         toast("Item Add successfully");
-        const total = action.payload.price;
-        state.cartItem = [
-          ...state.cartItem,
-          { ...action.payload, qty: 1, total: total },
-        ];
+        const { details, date } = action.payload;
+        state.cartItem = [...state.cartItem, { ...details, date }];
       }
-      
     },
     deleteCartItem: (state, action) => {
       toast("one Item Delete");
       const index = state.cartItem.findIndex((el) => el._id === action.payload);
       state.cartItem.splice(index, 1);
     },
-    increaseQty: (state, action) => {
-      const index = state.cartItem.findIndex((el) => el._id === action.payload);
-      let qty = state.cartItem[index].qty;
-      const qtyInc = ++qty;
-      state.cartItem[index].qty = qtyInc;
-
-      const price = state.cartItem[index].price;
-      const total = price * qtyInc;
-
-      state.cartItem[index].total = total;
-
-      
-    },
-    decreaseQty: (state, action) => {
-      const index = state.cartItem.findIndex((el) => el._id === action.payload);
-      let qty = state.cartItem[index].qty;
-      if (qty > 1) {
-        const qtyDec = --qty;
-        state.cartItem[index].qty = qtyDec;
-
-        const price = state.cartItem[index].price;
-        const total = price * qtyDec;
-
-        state.cartItem[index].total = total;
-
-      
-      }
+    updateCart: (state, action) => {
+      const { cartId, date } = action.payload;
+      const index = state.cartItem.findIndex((el) => el._id === cartId);
+      state.cartItem[index].date = date;
     },
   },
 });
@@ -84,6 +57,7 @@ export const {
   deleteCartItem,
   increaseQty,
   decreaseQty,
+  updateCart,
 } = productSlice.actions;
 
 export default productSlice.reducer;
