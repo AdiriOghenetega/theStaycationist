@@ -1,47 +1,24 @@
-import React, { useState } from "react";
-import { HiHomeModern } from "react-icons/hi2";
-import { HiLocationMarker } from "react-icons/hi";
-import { BiFilter, BiCategoryAlt } from "react-icons/bi";
+import React from "react";
+import { BiCategoryAlt } from "react-icons/bi";
 import { FaBath, FaBed } from "react-icons/fa";
 
 const FilterProduct = ({
- handleFilter,
- loading
+  selectCategory,
+  selectLocation,
+  selectRooms,
+  selectBaths,
 }) => {
-  //state to store filtered values
-  const [filterValues, setFilterValues] = useState({
-    category: "",
-    rooms: "",
-    baths: "",
-    location: "",
-  });
-
-  
-
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-
-    setFilterValues((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
-
-  };
-
   return (
-    <div className="w-[90%] my-2 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg p-4 rounded-2xl flex flex-wrap items-center">
+    <div className="w-[80%] my-2 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg p-4 rounded-2xl flex flex-wrap justify-around items-center">
       <div className="flex flex-col items-start">
         <label htmlFor="category" className="flex text-sm">
           <BiCategoryAlt size="20px" className="mr-2 text-red-900" /> Category
         </label>
         <select
-          className="bg-slate-200 px-2 py-1 my-1 text-sm"
+          className="bg-slate-200 px-2 py-1 my-1 text-sm rounded"
           id="category"
           name="category"
-          onChange={handleOnChange}
-          value={filterValues.category}
+          onChange={(event) => selectCategory(event.target.value)}
         >
           <option>Select Apartment Category</option>
           <option value={"onebed"}>One Bedroom Apartment</option>
@@ -57,10 +34,9 @@ const FilterProduct = ({
         </label>
         <input
           type={"text"}
-          className="bg-slate-200 p-1 my-1"
+          className="bg-slate-200 p-1 my-1 rounded"
           name="rooms"
-          onChange={handleOnChange}
-          value={filterValues.rooms}
+          onChange={(event) => selectRooms(event.target.value)}
         />
       </div>
       <hr className="m-4" />
@@ -71,38 +47,27 @@ const FilterProduct = ({
         </label>
         <input
           type={"text"}
-          className="bg-slate-200 p-1 my-1"
+          className="bg-slate-200 p-1 my-1 rounded"
           name="baths"
-          onChange={handleOnChange}
-          value={filterValues.baths}
+          onChange={(event) => selectBaths(event.target.value)}
         />
       </div>
       <hr className="m-4" />
       <div className="flex flex-col items-start">
         <label htmlFor="location" className="flex text-sm">
-          <HiLocationMarker size="20px" className="mr-2 text-red-900" />
           Location
         </label>
-        <input
-          type={"text"}
-          value={filterValues.location}
-          className="bg-slate-200 p-1 my-1 resize-none"
+        <select
+          className="bg-slate-200 px-2 py-1 my-1 text-sm rounded"
+          id="location"
           name="location"
-          onChange={handleOnChange}
-        />
-      </div>
-      {loading ? (
-        <div className="flex flex-col justify-center items-center">
-          <HiHomeModern size="25" className="animate-spin text-red-900" />
-        </div>
-      ) : (
-        <button
-          className="bg-red-900 hover:bg-red-700 text-white font-medium p-6 rounded h-[20px] drop-shadow ml-auto flex justify-center items-center"
-          onClick={()=>handleFilter(filterValues)}
+          onChange={(event) => selectLocation(event.target.value)}
         >
-          <BiFilter size="20px" className="mr-2" /> Filter
-        </button>
-      )}
+          <option>Select location</option>
+          <option value={"lagos"}>Lagos</option>
+          <option value={"abuja"}>Abuja</option>
+        </select>
+      </div>
     </div>
   );
 };

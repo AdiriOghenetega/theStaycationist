@@ -2,26 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CardFeature from "./CardFeature";
 import FilterProduct from "./FilterProduct";
-import { HiHomeModern } from "react-icons/hi2";
 
-const AllProduct = ({ heading, selectedCategory }) => {
+const AllProduct = ({ heading, selectedCategory, selectedProductId }) => {
   const productData = useSelector((state) => state.product.productList);
-  let categoryList = [...new Set(productData.map((el) => el.category))];
 
   //filter data display
   const [dataFilter, setDataFilter] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [selectCategory, setSelectCategory] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedRooms, setSelectedRooms] = useState(null);
+  const [selectedBaths, setSelectedBaths] = useState(null);
 
   let relatedProducts = [];
-  let relatedCategory = [];
   if (selectedCategory) {
     relatedProducts = productData.filter(
-      (el) => el.category.toLowerCase() === selectedCategory.toLowerCase()
+      (el) =>
+        el.category.toLowerCase() === selectedCategory.toLowerCase() &&
+        el._id !== selectedProductId
     );
-    relatedCategory = categoryList.filter(
-      (el) => el.toLowerCase() === selectedCategory.toLowerCase()
-    );
-    categoryList = relatedCategory;
   }
 
   useEffect(() => {
@@ -30,40 +28,51 @@ const AllProduct = ({ heading, selectedCategory }) => {
     } else {
       setDataFilter(productData);
     }
-  }, [productData]);
+  }, [selectedCategory, selectedProductId]);
 
+  const handleSelectCategory = (value) =>
+    setSelectCategory(!value ? null : value);
 
+  const handleSelectLocation = (value) =>
+    setSelectedLocation(!value ? null : value);
 
-  const handleFilter = async (filterValues) => {
-    const { category, location, rooms, baths } = filterValues;
+  const handleSelectRooms = (value) => setSelectedRooms(!value ? null : value);
 
-    let query = ""
+  const handleSelectBaths = (value) => setSelectedBaths(!value ? null : value);
 
-    if (category && !location && !rooms && !baths) {
-      query = `?category=${category}`
-    } else if (category && location && !rooms && !baths) {
-      query = `?category=${category}&location=${location}`
-    } else if (category && location && rooms && !baths) {
-      query = `?category=${category}&location=${location}&rooms=${rooms}`
-    } else if (category && location && rooms && baths) {
-      query = `?category=${category}&location=${location}&rooms=${rooms}&baths=${baths}`
+  const applyFilters = () => {
+    let updatedList = productData;
+
+    // category filter
+    if (selectCategory) {
+      updatedList = updatedList.filter(
+        (item) => item.category.toLowerCase() === selectCategory.toLowerCase()
+      );
     }
 
-    console.log(query)
-
-    try {
-      setLoading(true);
-      const res = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/queryproduct${query}`);
-      const resData = await res.json();
-      setDataFilter(resData);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
+    //location filter
+    if (selectedLocation) {
+      updatedList = updatedList.filter(
+        (item) => item.location.toLowerCase() === selectedLocation.toLowerCase()
+      );
     }
+
+    //rooms filter
+    if (selectedRooms) {
+      updatedList = updatedList.filter((item) => item.rooms === selectedRooms);
+    }
+
+    //baths
+    if (selectedBaths) {
+      updatedList = updatedList.filter((item) => item.baths === selectedBaths);
+    }
+
+    setDataFilter(updatedList);
   };
 
-  console.log(dataFilter);
+  useEffect(() => {
+    !selectedCategory && applyFilters();
+  }, [selectedLocation, selectCategory, selectedBaths, selectedRooms]);
 
   const loadingArrayFeature = new Array(10).fill(null);
 
@@ -72,7 +81,14 @@ const AllProduct = ({ heading, selectedCategory }) => {
       <h2 className="font-bold text-3xl text-red-900 mt-4 p-2 rounded w-auto">
         {heading}
       </h2>
-      <FilterProduct handleFilter={handleFilter} loading={loading} />
+      {!selectedCategory && (
+        <FilterProduct
+          selectCategory={handleSelectCategory}
+          selectLocation={handleSelectLocation}
+          selectRooms={handleSelectRooms}
+          selectBaths={handleSelectBaths}
+        />
+      )}
       {dataFilter?.length <= 0 ? (
         <div>
           <h3>No listing match your filter preferences</h3>

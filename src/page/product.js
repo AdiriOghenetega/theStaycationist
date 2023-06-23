@@ -118,6 +118,7 @@ const Product = () => {
       <AllProduct
         heading={"Related Listings"}
         selectedCategory={productDisplay?.category}
+        selectedProductId={productDisplay?._id}
       />
     </div>
   );
