@@ -4,7 +4,7 @@ import { BiShow, BiHide } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import { toast } from "react-hot-toast";
-import {GiHamburger} from "react-icons/gi"
+import { HiHomeModern } from "react-icons/hi2";
 
 function Signup() {
   const navigate = useNavigate();
@@ -185,13 +185,13 @@ console.log(process.env.REACT_APP_BASE_URL)
             </span>
           </div>
 
-          {loading ? <div className='flex flex-col justify-center items-center'><GiHamburger size="25" className='animate-spin text-[rgb(233,142,30)]' /></div>:<button className="w-full max-w-[150px] m-auto  bg-[rgb(233,142,30)] hover:bg-orange-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
+          {loading ? <div className='flex flex-col justify-center items-center'><HiHomeModern size="25" className='animate-spin text-red-900' /></div>:<button className="w-full max-w-[150px] m-auto  bg-red-900 hover:bg-orange-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
             Sign up
           </button>}
         </form>
         <p className="text-left text-sm mt-2">
           Already have account ?{" "}
-          <Link to={"/login"} className="text-[rgb(233,142,30)] underline">
+          <Link to={"/login"} className="text-red-900 underline">
             Login
           </Link>
         </p>

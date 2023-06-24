@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRedux } from "../redux/userSlice";
 import {setCartData} from "../redux/productSlice"
-import {GiHamburger} from "react-icons/gi"
+import { HiHomeModern } from "react-icons/hi2";
 
 
 const Login = () => {
@@ -112,13 +112,13 @@ const Login = () => {
           </span>
         </div>
 
-        {loading ? <div className='flex flex-col justify-center items-center'><GiHamburger size="25" className='animate-spin text-[rgb(233,142,30)]' /></div>:<button className="w-full max-w-[150px] m-auto  bg-[rgb(233,142,30)] hover:bg-orange-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
+        {loading ? <div className='flex flex-col justify-center items-center'><HiHomeModern size="25" className='animate-spin text-red-900' /></div>:<button className="w-full max-w-[150px] m-auto  bg-red-900 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
           Login
         </button>}
       </form>
       <p className="text-left text-sm mt-2">
         Don't  have account ?{" "}
-        <Link to={"/signup"} className="text-[rgb(233,142,30)] underline">
+        <Link to={"/signup"} className="text-red-900 underline">
           Sign Up
         </Link>
       </p>
