@@ -1,5 +1,7 @@
 import React from "react";
 import { BiCategoryAlt } from "react-icons/bi";
+import { MdOutlineLocationCity } from "react-icons/md";
+import { TiWorld } from "react-icons/ti";
 import { FaBath, FaBed } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
@@ -17,7 +19,7 @@ const FilterProduct = ({
   const countryList = [...new Set(productData.map((el) => el.country))];
 
   return (
-    <div className="w-[80%] my-2 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg p-4 rounded-2xl md:flex justify-around items-center">
+    <div className="w-[80%] my-2 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg p-4 rounded-2xl md:flex md:flex-wrap justify-around items-center">
       <div className="flex flex-col items-start">
         <label htmlFor="category" className="flex text-sm">
           <BiCategoryAlt size="20px" className="mr-2 text-red-900" /> Category
@@ -63,6 +65,7 @@ const FilterProduct = ({
       <hr className="m-4" />
       <div className="flex flex-col items-start">
         <label htmlFor="state" className="flex text-sm">
+          <MdOutlineLocationCity size="20px" className="mr-2 text-red-900" />
           State
         </label>
         <select
@@ -84,6 +87,7 @@ const FilterProduct = ({
       <hr className="m-4" />
       <div className="flex flex-col items-start">
         <label htmlFor="country" className="flex text-sm">
+          <TiWorld size="20px" className="mr-2 text-red-900" />
           Country
         </label>
         <select

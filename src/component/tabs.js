@@ -31,9 +31,9 @@ const Tabs = () => {
   ];
 
   return (
-    <div className="flex w-full">
-      <div className="w-[15%] p-2 flex flex-col justify-start items-start border-2 ">
-        <h1 className="bg-gray-900 text-white text-bold w-full p-4 flex flex-col justify-center items-center mb-4">
+    <div className="md:flex w-full">
+      <div className="md:w-[25%] p-2 flex flex-col justify-start items-start border-2 mb-2">
+        <h1 className="bg-gray-900 text-white text-bold w-full p-4 flex flex-col justify-center items-center ">
           DASHBOARD
         </h1>
         {tabs.map((tab, index) => (
@@ -48,7 +48,7 @@ const Tabs = () => {
           </button>
         ))}
       </div>
-      <div className="w-[75%] min-h-[calc(100vh-4em)]">
+      <div className="md:w-[75%] min-h-[calc(100vh-4em)] border-2 md:border-0 pt-2 md:pt-0">
         {activeTab === "first" && <UserRole />}
         {activeTab === "second" && <UploadProduct />}
         {activeTab === "third" && <DeleteProduct />}

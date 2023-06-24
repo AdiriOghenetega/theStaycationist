@@ -7,6 +7,7 @@ import { setCartData } from "../redux/productSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { HiHomeModern } from "react-icons/hi2";
 
+
 const Cart = () => {
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [guestData, setGuestData] = useState({
