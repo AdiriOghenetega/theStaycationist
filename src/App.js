@@ -4,17 +4,15 @@ import Header from "./component/Header";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
-import { setDataProduct, setCartData } from "./redux/productSlice";
+import { setDataProduct } from "./redux/productSlice";
 import { loginRedux } from "./redux/userSlice";
-import { bannerRedux } from "./redux/bannerSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   const dispatch = useDispatch();
   const cartData = useSelector((state) => state.product.cartItem);
-  const productData = useSelector((state) => state.product.productList);
   const user = localStorage.getItem("user");
-  const location = localStorage.getItem("location");
+ 
 
   //reload product on refresh
   useEffect(() => {

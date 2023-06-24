@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutRedux } from "../redux/userSlice";
 import { toast } from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
-import { useLocation } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 const Header = () => {

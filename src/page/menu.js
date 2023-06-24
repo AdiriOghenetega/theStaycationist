@@ -75,7 +75,8 @@ const Menu = () => {
                         category={el.category}
                         price={el.price}
                         image={el.images[0]}
-                        location={el.location}
+                        state={el.state}
+                        country={el.country}
                         rooms={el.rooms}
                         baths={el.baths}
                         description={el.description}

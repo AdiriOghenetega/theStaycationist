@@ -9,7 +9,8 @@ const AllProduct = ({ heading, selectedCategory, selectedProductId }) => {
   //filter data display
   const [dataFilter, setDataFilter] = useState([]);
   const [selectCategory, setSelectCategory] = useState(null);
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedState, setSelectedState] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedRooms, setSelectedRooms] = useState(null);
   const [selectedBaths, setSelectedBaths] = useState(null);
 
@@ -33,8 +34,10 @@ const AllProduct = ({ heading, selectedCategory, selectedProductId }) => {
   const handleSelectCategory = (value) =>
     setSelectCategory(!value ? null : value);
 
-  const handleSelectLocation = (value) =>
-    setSelectedLocation(!value ? null : value);
+  const handleSelectState = (value) => setSelectedState(!value ? null : value);
+
+  const handleSelectCountry = (value) =>
+    setSelectedCountry(!value ? null : value);
 
   const handleSelectRooms = (value) => setSelectedRooms(!value ? null : value);
 
@@ -51,9 +54,15 @@ const AllProduct = ({ heading, selectedCategory, selectedProductId }) => {
     }
 
     //location filter
-    if (selectedLocation) {
+    if (selectedState) {
       updatedList = updatedList.filter(
-        (item) => item.location.toLowerCase() === selectedLocation.toLowerCase()
+        (item) => item.state.toLowerCase() === selectedState.toLowerCase()
+      );
+    }
+
+    if (selectedCountry) {
+      updatedList = updatedList.filter(
+        (item) => item.country.toLowerCase() === selectedCountry.toLowerCase()
       );
     }
 
@@ -72,7 +81,13 @@ const AllProduct = ({ heading, selectedCategory, selectedProductId }) => {
 
   useEffect(() => {
     !selectedCategory && applyFilters();
-  }, [selectedLocation, selectCategory, selectedBaths, selectedRooms]);
+  }, [
+    selectedCountry,
+    selectedState,
+    selectCategory,
+    selectedBaths,
+    selectedRooms,
+  ]);
 
   const loadingArrayFeature = new Array(10).fill(null);
 
@@ -84,7 +99,8 @@ const AllProduct = ({ heading, selectedCategory, selectedProductId }) => {
       {!selectedCategory && (
         <FilterProduct
           selectCategory={handleSelectCategory}
-          selectLocation={handleSelectLocation}
+          selectState={handleSelectState}
+          selectCountry={handleSelectCountry}
           selectRooms={handleSelectRooms}
           selectBaths={handleSelectBaths}
         />
@@ -105,7 +121,8 @@ const AllProduct = ({ heading, selectedCategory, selectedProductId }) => {
                     name={el.name}
                     category={el.category}
                     price={el.price}
-                    location={el.location}
+                    state={el.state}
+                    country={el.country}
                     description={el.description}
                     baths={el.baths}
                     rooms={el.rooms}

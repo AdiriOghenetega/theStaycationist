@@ -27,17 +27,17 @@ export const productSlice = createSlice({
       state.orderList = [...action.payload];
     },
     addCartItem: (state, action) => {
-      const check = state.cartItem.some((el) => el._id === action.payload._id);
+      const check = state.cartItem.some((el) => el._id === action.payload.details._id);
       if (check) {
-        toast("Already Item in Cart");
+        toast("Item Already in Cart");
       } else {
-        toast("Item Add successfully");
+        toast("Item Added successfully");
         const { details, date } = action.payload;
         state.cartItem = [...state.cartItem, { ...details, date }];
       }
     },
     deleteCartItem: (state, action) => {
-      toast("one Item Delete");
+      toast("One Item Deleted");
       const index = state.cartItem.findIndex((el) => el._id === action.payload);
       state.cartItem.splice(index, 1);
     },

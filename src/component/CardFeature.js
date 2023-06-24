@@ -1,7 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { addCartItem } from "../redux/productSlice";
 import { HiHomeModern } from "react-icons/hi2";
 import { FaBath, FaBed } from "react-icons/fa";
 import { BsGridFill } from "react-icons/bs";
@@ -11,15 +9,14 @@ const CardFeature = ({
   image,
   name,
   price,
-  category,
   loading,
   id,
-  location,
+  state,
+  country,
   description,
   rooms,
   baths
 }) => {
-  const dispatch = useDispatch();
 
 
   return (
@@ -53,7 +50,7 @@ const CardFeature = ({
               </div>
               <p className=" text-slate-900 font-bold">
                 {" "}
-                <span className="text-slate-500 text-sm">{location}</span>
+                <span className="text-slate-500 text-sm">{state}{", "}{country}</span>
               </p>
 
               <p className=" text-slate-900 text-sm font-bold">

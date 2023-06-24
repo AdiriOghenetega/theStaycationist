@@ -18,7 +18,6 @@ const Cart = () => {
   });
 
   const productCartItem = useSelector((state) => state.product.cartItem);
-  console.log(productCartItem);
 
   const user = useSelector((state) => state.user);
 
@@ -32,8 +31,8 @@ const Cart = () => {
   );
 
   //vat = 7.5%
-  const totalVat = (7.5 / 100) * parseInt(totalPrice);
-  totalPrice = totalPrice + parseInt(totalVat);
+  const totalVat = Math.floor((7.5 / 100) * parseInt(totalPrice));
+  totalPrice = Math.floor(parseInt(totalPrice) + parseInt(totalVat));
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -113,6 +112,9 @@ const Cart = () => {
                     total={el.total}
                     price={el.price}
                     date={el.date}
+                    state={el.state}
+                    country={el.country}
+                    booked={el.booked}
                   />
                 );
               })}
@@ -218,11 +220,16 @@ const Cart = () => {
                 className="w-full max-w-sm rounded-lg drop-shadow-2xl"
               />
               <p className="text-red-900 text-3xl font-bold mt-4">Empty Cart</p>
-              <Link to={`/`}>
-                <button className="w-full max-w-[150px] m-auto  bg-red-900 hover:bg-red-600 cursor-pointer text-white text-center p-2 rounded mt-4">
-                  Start Shopping
-                </button>
-              </Link>
+
+              <button
+                onClick={() => {
+                  navigate("/");
+                  window.location.reload();
+                }}
+                className="w-full max-w-[150px] m-auto  bg-red-900 hover:bg-red-600 cursor-pointer text-white text-center p-2 rounded mt-4"
+              >
+                Start Shopping
+              </button>
             </div>
           </>
         )}

@@ -413,8 +413,8 @@ const Admin = () => {
 
         <label htmlFor="image">
           Image
-          <div className="h-48 w-full bg-slate-200 relative rounded flex-col items-center justify-center cursor-pointer">
-            <div className="flex flex-wrap">
+          <div className="h-48 w-full bg-slate-200 relative rounded flex-col items-center justify-center cursor-pointer overflow-hidden">
+            <div className="flex flex-wrap overflow-hidden">
               {data.images.length > 0 &&
                 data.images.map((elem, index) => {
                   return (
