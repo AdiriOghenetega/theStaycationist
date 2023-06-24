@@ -66,6 +66,7 @@ const Orders = () => {
         res.data && dispatch(setOrderData(res.data));
         setOrderLoading(false);
         res.message && toast(res.message);
+        window.location.reload()
       }
     } catch (error) {
       console.log(error);
