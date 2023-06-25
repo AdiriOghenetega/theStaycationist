@@ -30,7 +30,7 @@ const Confirmation = () => {
       if (data) {
         setLoading(true);
         const updateOrders = await fetch(
-          `${process.env.REACT_APP_BASE_URL}/updateorder?transactionReference=${data.data.reference}`,
+          `${process.env.REACT_APP_BASE_URL}/updatepaymentstatus?transactionReference=${data.data.reference}`,
           {
             method: "PUT",
             headers: {
