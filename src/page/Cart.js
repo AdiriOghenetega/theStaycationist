@@ -56,7 +56,8 @@ const Cart = () => {
 
       const data = await res.json();
 
-      const orderRes = await fetch(
+      if(data){
+        const orderRes = await fetch(
         `${process.env.REACT_APP_BASE_URL}/createorder`,
         {
           method: "POST",
@@ -84,6 +85,9 @@ const Cart = () => {
       toast("Redirect to payment Gateway...!");
       dispatch(setCartData([]));
       window.location.href = data.data.authorization_url;
+    }else{
+      toast("Network Error,Try again")
+    }
     } else {
       toast(
         "Kindly login or provide the required details to continue purchase"

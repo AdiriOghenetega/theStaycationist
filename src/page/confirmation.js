@@ -1,30 +1,79 @@
-import React,{useState} from 'react'
-import {GiHamburger} from "react-icons/gi"
+import React, { useState } from "react";
+import { HiHomeModern } from "react-icons/hi2";
+import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setOrderData } from "../redux/productSlice";
+import { useNavigate } from "react-router-dom";
 
 const Confirmation = () => {
+  const dispatch = useDispatch();
 
-  const [loading,setLoading] = useState(false)
+  const navigate = useNavigate();
 
- let search = window.location.search
- let params = new URLSearchParams(search)
- let txReference = params.get("trxref")
+  const [loading, setLoading] = useState(false);
 
- console.log(txReference)
+  let search = window.location.search;
+  let params = new URLSearchParams(search);
+  let txReference = params.get("trxref");
 
-  const handleVerifyTransaction = async()=>{
-    const res = await fetch(`${process.env.REACT_APP_BASE_URL}/verifypayment?reference=${txReference}`)
-    const data = await res.json()
-    console.log(data)
-  }
+  console.log(txReference);
+
+  const handleVerifyTransaction = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/verifypayment?reference=${txReference}`
+      );
+      const data = await res.json();
+
+      console.log(data);
+
+      if (data) {
+        setLoading(true);
+        const updateOrders = await fetch(
+          `${process.env.REACT_APP_BASE_URL}/updateorder?transactionReference=${data.data.reference}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({ paymentStatus: data.data.status }),
+          }
+        );
+        const res = await updateOrders.json();
+
+        if (res) {
+          res.data && dispatch(setOrderData(res.data));
+          setLoading(false);
+          res.message && toast(res.message);
+          navigate("/success");
+        }
+      } else {
+        toast("Network Error,Try again");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <div className='flex flex-col justify-center items-center w-full min-h-[calc(100vh-4em)]'>
-      <div className='m-auto flex flex-col justify-center items-center'>
-      <h3>Click the "paid" button to confirm purchase</h3>
-      {loading ? <div className='flex flex-col justify-center items-center'><GiHamburger size="25" className='animate-spin text-[rgb(233,142,30)]' /></div>:<button className={`bg-[rgb(233,142,30)] hover:bg-orange-600 text-white text-lg font-medium p-2 rounded my-2 drop-shadow`} onClick={handleVerifyTransaction}>paid</button>}
+    <div className="flex flex-col justify-center items-center w-full min-h-[calc(100vh-4em)]">
+      <div className="m-auto flex flex-col justify-center items-center">
+        <h3>Click the "paid" button to confirm purchase</h3>
+        {loading ? (
+          <div className="flex flex-col justify-center items-center">
+            <HiHomeModern size="25" className="animate-spin text-red-900" />
+          </div>
+        ) : (
+          <button
+            className={`bg-red-900 hover:bg-red-600 text-white text-lg font-medium p-2 rounded my-2 drop-shadow`}
+            onClick={handleVerifyTransaction}
+          >
+            paid
+          </button>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Confirmation
+export default Confirmation;
