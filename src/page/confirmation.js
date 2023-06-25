@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setOrderData } from "../redux/productSlice";
 import { useNavigate } from "react-router-dom";
+import { setCartData } from "../redux/productSlice";
 
 const Confirmation = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const Confirmation = () => {
           res.data && dispatch(setOrderData(res.data));
           setLoading(false);
           res.message && toast(res.message);
+          dispatch(setCartData([]));
           navigate("/success");
         }
       } else {

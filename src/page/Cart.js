@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import CartProduct from "../component/cartProduct";
 import emptyCartImage from "../assets/empty-cart.gif";
 import { toast } from "react-hot-toast";
-import { setCartData } from "../redux/productSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { HiHomeModern } from "react-icons/hi2";
 
@@ -83,7 +82,6 @@ const Cart = () => {
       console.log(orderData);
       setPaymentLoading(false);
       toast("Redirect to payment Gateway...!");
-      dispatch(setCartData([]));
       window.location.href = data.data.authorization_url;
     }else{
       toast("Network Error,Try again")
