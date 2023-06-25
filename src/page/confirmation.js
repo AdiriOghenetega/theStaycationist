@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { setOrderData } from "../redux/productSlice";
 import { useNavigate } from "react-router-dom";
 import { setCartData } from "../redux/productSlice";
+import click from "../assets/click.gif"
 
 const Confirmation = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,6 @@ const Confirmation = () => {
       );
       const data = await res.json();
 
-      console.log(data);
 
       if (data) {
         setLoading(true);
@@ -60,19 +60,23 @@ const Confirmation = () => {
   return (
     <div className="flex flex-col justify-center items-center w-full min-h-[calc(100vh-4em)]">
       <div className="m-auto flex flex-col justify-center items-center">
-        <h3>Click the "paid" button to confirm purchase</h3>
-        {loading ? (
+      {loading ? (
           <div className="flex flex-col justify-center items-center">
             <HiHomeModern size="25" className="animate-spin text-red-900" />
           </div>
         ) : (
           <button
-            className={`bg-red-900 hover:bg-red-600 text-white text-lg font-medium p-2 rounded my-2 drop-shadow`}
+            className={`bg-red-900 hover:bg-red-600 text-white text-lg font-medium py-2 px-6 rounded my-2 drop-shadow`}
             onClick={handleVerifyTransaction}
           >
             paid
           </button>
         )}
+      <div>
+        <img src={click} alt="success" className="h-[150px] w-[150px]"  />
+      </div>
+        <h3>Click the "paid" button to confirm payment</h3>
+       
       </div>
     </div>
   );

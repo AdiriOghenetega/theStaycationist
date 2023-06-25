@@ -1,12 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import success from "../assets/success.gif"
 
 const Success = () => {
 
   return (
     <div>
-      <div className="bg-green-200 w-full max-w-md m-auto h-36 flex justify-center items-center font-semibold text-lg mt-6">
-        <p>Payment was Successfully</p>
+      <div className="bg-green-200 w-fit p-[50px] md:p-[100px] rounded-xl m-auto h-auto flex flex-col justify-center items-center font-semibold text-lg mt-6">
+      <div>
+        <img src={success} alt="success" className="h-[150px] w-[150px]"  />
+      </div>
+        <p className="w-full">Payment was Successful</p>
       </div>
       <div className="flex flex-col justify-center items-center">
       <Link to={`/`}>
