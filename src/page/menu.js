@@ -27,7 +27,7 @@ const Menu = () => {
           <div className="h-full overflow-hidden w-full relative">
             <img
               src={
-                "https://images.unsplash.com/photo-1484301548518-d0e0a5db0fc8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODF8fGFwYXJ0bWVudHMlMjBpbnRlcmlvciUyMGdyYXl8ZW58MHwwfDB8fHww&auto=format&fit=crop&w=500&q=60"
+                "https://images.pexels.com/photos/17399356/pexels-photo-17399356/free-photo-of-cabana-raposo.jpeg?auto=compress&cs=tinysrgb&w=1600"
               }
               className="h-full w-full"
             />
@@ -96,7 +96,7 @@ const Menu = () => {
           <div className="h-full overflow-hidden w-full">
             <img
               src={
-                "https://images.unsplash.com/photo-1586105251261-72a756497a11?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGFwYXJ0bWVudHMlMjBiZWRyb29tJTIwZ3JheXxlbnwwfDB8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+                "https://images.pexels.com/photos/11786266/pexels-photo-11786266.jpeg?auto=compress&cs=tinysrgb&w=1600"
               }
               className="h-full w-full"
             />
