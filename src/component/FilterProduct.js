@@ -25,7 +25,7 @@ const FilterProduct = ({
           <BiCategoryAlt size="20px" className="mr-2 text-red-900" /> Category
         </label>
         <select
-          className="bg-slate-200 px-2 py-1 my-1 text-sm rounded"
+          className="bg-slate-200 px-2 py-1 my-1 text-sm rounded w-full sm:w-fit"
           id="category"
           name="category"
           onChange={(event) => selectCategory(event.target.value)}
@@ -44,7 +44,8 @@ const FilterProduct = ({
         </label>
         <input
           type={"text"}
-          className="bg-slate-200 p-1 my-1 rounded"
+          className="bg-slate-200 p-1 my-1 rounded w-full sm:w-fit text-sm text-black"
+          placeholder="Select Room Type"
           name="rooms"
           onChange={(event) => selectRooms(event.target.value)}
         />
@@ -57,7 +58,8 @@ const FilterProduct = ({
         </label>
         <input
           type={"text"}
-          className="bg-slate-200 p-1 my-1 rounded"
+          className="bg-slate-200 p-1 my-1 rounded w-full sm:w-fit text-sm text-black"
+          placeholder="Select Bath Type"
           name="baths"
           onChange={(event) => selectBaths(event.target.value)}
         />
@@ -69,7 +71,7 @@ const FilterProduct = ({
           State
         </label>
         <select
-          className="bg-slate-200 px-2 py-1 my-1 text-sm rounded"
+          className="bg-slate-200 px-2 py-1 my-1 text-sm rounded w-full sm:w-fit"
           id="state"
           name="state"
           onChange={(event) => selectState(event.target.value)}
@@ -91,7 +93,7 @@ const FilterProduct = ({
           Country
         </label>
         <select
-          className="bg-slate-200 px-2 py-1 my-1 text-sm rounded"
+          className="bg-slate-200 px-2 py-1 my-1 text-sm rounded w-full sm:w-fit"
           id="country"
           name="country"
           onChange={(event) => selectCountry(event.target.value)}

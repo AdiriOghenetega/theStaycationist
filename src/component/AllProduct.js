@@ -110,7 +110,7 @@ const AllProduct = ({ heading, selectedCategory, selectedProductId }) => {
           <h3>No listing match your filter preferences</h3>
         </div>
       ) : (
-        <div className="flex flex-wrap justify-center md:gap-4 my-4">
+        <div className="flex flex-wrap justify-center m-4">
           {dataFilter[0]
             ? dataFilter.map((el) => {
                 return (

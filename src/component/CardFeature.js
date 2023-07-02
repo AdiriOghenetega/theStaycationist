@@ -21,7 +21,7 @@ const CardFeature = ({
 
   return (
     <div
-      className={`w-full mt-2 min-w-[350px] w-[350px] bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg cursor-pointer flex flex-col ${
+      className={`w-full m-2 min-w-[350px] w-[350px] bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg cursor-pointer flex flex-col ${
         loading && "animate-pulse"
       }`}
     >

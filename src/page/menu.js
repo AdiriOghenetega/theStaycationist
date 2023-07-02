@@ -22,8 +22,8 @@ const Menu = () => {
 
   return (
     <div className="p-2 md:p-4 bg-slate-100">
-      <div className="w-full md:h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg md:flex justify-around relative">
-        <div className="w-full md:w-[63%] max-h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg ">
+      <div className="w-full my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg p-4 rounded-lg md:flex justify-around relative">
+        <div className="w-full md:w-[53%] lg:w-[63%] h-[350px] md:h-[500px] lg:h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg ">
           <div className="h-full overflow-hidden w-full relative">
             <img
               src={
@@ -33,7 +33,7 @@ const Menu = () => {
             />
           </div>
         </div>
-        <div className="w-full md:w-[35%] max-h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg overflow-hidden relative">
+        <div className="w-full md:w-[45%] lg:w-[35%] h-[350px] md:h-[500px] lg:h-[600px] my-4 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg overflow-hidden relative">
           <div className="h-full overflow-hidden w-full relative">
             <img
               src={accomodations}
@@ -43,7 +43,7 @@ const Menu = () => {
         </div>
       </div>
       <div className="w-[100%] md:flex my-4 md:my-0">
-        <div className="w-full md:w-[60%] bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg">
+        <div className="w-full md:w-[50%] lg:w-[60%] md:h-[560px] lg:h-[600px] bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg">
           <div className="max-h-fit">
             <div className="flex w-full items-center">
               <h2 className="font-bold text-2xl text-red-900 mb-4 p-2 rounded">
@@ -92,8 +92,8 @@ const Menu = () => {
             </div>
           </div>
         </div>
-        <div className="w-full md:w-[40%] my-4 md:my-0 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg md:ml-4">
-          <div className="h-[530px] overflow-hidden w-full">
+        <div className="w-full md:w-[50%] lg:w-[40%] my-4 h-[400px] md:h-[560px] lg:h-[600px] md:my-0 bg-[rgb(255,255,255,.8)] hover:shadow-lg drop-shadow-lg py-5 px-4 rounded-lg md:ml-4">
+          <div className="h-full overflow-hidden w-full">
             <img
               src={
                 "https://images.unsplash.com/photo-1586105251261-72a756497a11?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGFwYXJ0bWVudHMlMjBiZWRyb29tJTIwZ3JheXxlbnwwfDB8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
